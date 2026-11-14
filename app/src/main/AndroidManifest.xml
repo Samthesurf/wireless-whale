@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Network observation and control over public APIs only. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+
+    <!-- Wi-Fi scanning needs location. Fine plus coarse are requested together
+         on every SDK (Android 12 and above requires both in one request,
+         including Android 13 and above); nearby-devices is declared for a
+         future peer feature and is never requested for scans. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation" />
+
+    <!-- Camera is contextual to the QR scanner screen only. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
+
+    <!-- Held only while local mDNS discovery runs. -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <!-- Deliberately absent: background location, usage access, accessibility,
+         storage, overlay, and device admin permissions are not needed. -->
+
+    <!-- Package visibility for the Shizuku manager (target 36): without this
+         query the app cannot see whether the manager is installed or check
+         its running state. -->
+    <queries>
+        <package android:name="moe.shizuku.privileged.api" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.WirelessWhale">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.samuel.wirelesswhale.action.SCAN_QR" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.samuel.wirelesswhale.action.HOTSPOT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Shizuku shell-mode access (non-root, UID 2000). Official provider
+             declaration: exported so the Shizuku server can reach it, guarded
+             by a permission normal apps cannot hold. Runtime authorization is
+             requested in-app only after explicit user consent; see the hotspot
+             worker and docs/enhanced-access.md. -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <!-- Quick Settings tiles. Implementations are owned by the hotspot
+             worker; classes below are the contract paths. The hotspot tile
+             opens real system controls and never fakes an On state. -->
+        <service
+            android:name=".tiles.HotspotTileService"
+            android:label="@string/tile_hotspot_label"
+            android:icon="@drawable/ic_tile_hotspot"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".tiles.ScanWifiTileService"
+            android:label="@string/tile_scan_label"
+            android:icon="@drawable/ic_tile_scan"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- No foreground service is declared: none is implemented in this slice.
+             No UserService registration here: a Shizuku UserService is not a
+             normal manifest service. -->
+
+    </application>
+
+</manifest>

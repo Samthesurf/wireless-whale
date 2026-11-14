@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Wireless Whale</string>
+    <string name="tile_hotspot_label">Whale Hotspot</string>
+    <string name="tile_scan_label">Whale Scan QR</string>
+</resources>

@@ -1,0 +1,35 @@
+Geist font sources bundled with Wireless Whale
+================================================
+
+Release: v1.9.2 (pinned source of record)
+Release bundle: https://github.com/vercel/geist-font/releases/download/v1.9.2/geist-font-v1.9.2.zip
+Release index: https://github.com/vercel/geist-font/releases
+Project: https://github.com/vercel/geist-font
+License statement: https://vercel.com/font
+
+Files bundled under app/src/main/res/font (static OTF, renamed lowercase):
+
+  geist_regular.otf      <- geist-font/Geist/otf/Geist-Regular.otf
+    sha256 674ccb412bf5f6bc75bb1658189f83daf6a4046d742da64bdd46e671fbd779e0
+  geist_medium.otf       <- geist-font/Geist/otf/Geist-Medium.otf
+    sha256 bd73ca3934c6502c6f865bd9b630ab6f6f59c16478824aefaee3e2da664d6a58
+  geist_semibold.otf     <- geist-font/Geist/otf/Geist-SemiBold.otf
+    sha256 e7516c6998318861f48335d94ba1fc485cdd13eae46f1144e58cddef80e0e93e
+  geist_mono_regular.otf <- geist-font/GeistMono/otf/GeistMono-Regular.otf
+    sha256 f0d0ab76184c7fe6b975f1ab9c3968cc129f67147e2f451a5b1a0b958a477486
+  geist_mono_medium.otf  <- geist-font/GeistMono/otf/GeistMono-Medium.otf
+    sha256 bcb73d3fcad915d1ad954e02b7033b07676fc961d59f4bb2f7978b50e5956a5b
+
+License: SIL Open Font License 1.1, full text in OFL.txt next to this file.
+License sources:
+  https://github.com/vercel/geist-font/blob/main/OFL.txt
+  https://github.com/vercel/geist-font/blob/main/LICENSE.txt
+  https://openfontlicense.org
+  https://scripts.sil.org/OFL
+
+Individual raw file references (same pinned tag, review only):
+  https://github.com/vercel/geist-font/raw/v1.9.2/fonts/Geist/otf/Geist-Regular.otf
+  https://github.com/vercel/geist-font/raw/v1.9.2/fonts/Geist/otf/Geist-Medium.otf
+  https://github.com/vercel/geist-font/raw/v1.9.2/fonts/Geist/otf/Geist-SemiBold.otf
+  https://github.com/vercel/geist-font/raw/v1.9.2/fonts/GeistMono/otf/GeistMono-Regular.otf
+  https://github.com/vercel/geist-font/raw/v1.9.2/fonts/GeistMono/otf/GeistMono-Medium.otf
